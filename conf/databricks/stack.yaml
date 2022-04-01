@@ -1,0 +1,48 @@
+name: ${oc.env:PROJECT_NAME}
+resources:
+  - id: notebooks-dir
+    service: workspace
+    properties:
+      source_path: ${oc.env:PROJECT_DIR}/notebooks
+      path: ${oc.env:DATABRICKS_WORKSPACE_DIR}/notebooks
+      object_type: DIRECTORY
+  - id: src-dir
+    service: dbfs
+    properties:
+      source_path: ${oc.env:PROJECT_DIR}/databricks_stack_example
+      path: ${oc.env:DATABRICKS_DBFS_DIR}/databricks_stack_example
+      is_dir: true
+  - id: dist-dir
+    service: dbfs
+    properties:
+      source_path: ${oc.env:PROJECT_DIR}/dist
+      path: ${oc.env:DATABRICKS_DBFS_DIR}/dist
+      is_dir: true
+  - id: data-dir
+    service: dbfs
+    properties:
+      source_path: ${oc.env:PROJECT_DIR}/data
+      path: ${oc.env:DATABRICKS_DBFS_DIR}/data
+      is_dir: true
+  - id: example-job
+    service: jobs
+    properties:
+      name: Example Job
+      new_cluster:
+        spark_version: 10.4.x-cpu-ml-scala2.12
+        node_type_id: Standard_DS3_v2
+        num_workers: 0
+        spark_env_vars:
+          PARAM_1: ${oc.env:PARAM_1}
+          PARAM_2: ${oc.env:PARAM_2}
+      libraries:
+        - whl: ${oc.env:DATABRICKS_DBFS_DIR}/dist/${oc.env:WHEEL_NAME}
+      spark_python_task:
+        python_file: ${oc.env:DATABRICKS_DBFS_DIR}/databricks_stack_example/scripts/task1.py
+        parameters:
+          - "--param-1"
+          - ${oc.env:PARAM_1}
+          - "--param-2"
+          - ${oc.env:PARAM_2}
+      timeout_seconds: 7200
+      max_retries: 1

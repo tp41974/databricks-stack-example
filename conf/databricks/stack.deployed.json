@@ -1,0 +1,41 @@
+{
+  "cli_version": "0.16.4",
+  "deployed_resources": [
+    {
+      "databricks_id": {
+        "path": "/Users/tp41974@jetblue.com/databricks-stack-example/notebooks"
+      },
+      "id": "notebooks-dir",
+      "service": "workspace"
+    },
+    {
+      "databricks_id": {
+        "path": "dbfs:/Users/tp41974@jetblue.com/databricks-stack-example/databricks_stack_example"
+      },
+      "id": "src-dir",
+      "service": "dbfs"
+    },
+    {
+      "databricks_id": {
+        "path": "dbfs:/Users/tp41974@jetblue.com/databricks-stack-example/dist"
+      },
+      "id": "dist-dir",
+      "service": "dbfs"
+    },
+    {
+      "databricks_id": {
+        "path": "dbfs:/Users/tp41974@jetblue.com/databricks-stack-example/data"
+      },
+      "id": "data-dir",
+      "service": "dbfs"
+    },
+    {
+      "databricks_id": {
+        "job_id": 71539967075377
+      },
+      "id": "example-job",
+      "service": "jobs"
+    }
+  ],
+  "name": "databricks-stack-example"
+}
