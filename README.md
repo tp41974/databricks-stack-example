@@ -31,8 +31,6 @@ pip install -e .
 
 ## Directory structure
 
-──
-
 ```
 |-- conf <- The top-level configuration directory
     |-- databricks
