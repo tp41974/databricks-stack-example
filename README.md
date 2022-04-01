@@ -1,7 +1,7 @@
 # Databricks Stack Example
 
-This example repository demonstrates how to utilize the Databricks CLI
-in order to deploy projects across multiple Databricks environments.
+This example repository demonstrates how the Databricks CLI can be used
+to deploy projects across multiple Databricks environments.
 
 To do:
 
