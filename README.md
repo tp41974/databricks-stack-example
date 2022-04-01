@@ -3,6 +3,16 @@
 This example repository demonstrates how to utilize the Databricks CLI
 in order to deploy projects across multiple Databricks environments.
 
+To do:
+
+- MVP:
+    - [ ] Add multi-task job configuration
+    - [ ] Ensure `spark_python_task` tasks accept command line arguments as parameters
+- Enhancements:
+    - [ ] Use git filesystem to automate workspace/dbfs configuration
+    - [ ] Explore environment variables vs parameters for tasks
+
+
 ## Installation
 
 Clone this repository
@@ -48,3 +58,5 @@ pip install -e .
 |-- notebooks        <- Jupyter notebooks
 tasks.py        <- management commands like `build` and `deploy`
 ```
+
+## Usage
