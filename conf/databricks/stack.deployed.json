@@ -31,9 +31,16 @@
     },
     {
       "databricks_id": {
-        "job_id": 71539967075377
+        "job_id": 730684831378334
       },
-      "id": "example-job",
+      "id": "single-task-job",
+      "service": "jobs"
+    },
+    {
+      "databricks_id": {
+        "job_id": 255637702614704
+      },
+      "id": "multiple-task-job",
       "service": "jobs"
     }
   ],
