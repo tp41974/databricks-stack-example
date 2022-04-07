@@ -24,10 +24,10 @@ resources:
       source_path: ${oc.env:PROJECT_DIR}/data
       path: ${oc.env:DATABRICKS_DBFS_DIR}/data
       is_dir: true
-  - id: example-job
+  - id: single-task-job
     service: jobs
     properties:
-      name: Example Job
+      name: Example Single Task Job
       new_cluster:
         spark_version: 10.4.x-cpu-ml-scala2.12
         node_type_id: Standard_DS3_v2
@@ -46,3 +46,57 @@ resources:
           - ${oc.env:PARAM_2}
       timeout_seconds: 7200
       max_retries: 1
+  - id: multiple-task-job
+    service: jobs
+    properties:
+      name: Example Multiple Task Job
+      format: "MULTI_TASK"
+      job_clusters:
+        - job_cluster_key: multiple-task-job-cluster
+          new_cluster:
+            spark_version: 10.4.x-cpu-ml-scala2.12
+            node_type_id: Standard_DS3_v2
+            num_workers: 0
+            spark_env_vars:
+              PARAM_1: ${oc.env:PARAM_1}
+              PARAM_2: ${oc.env:PARAM_2}
+      tasks:
+        - task_key: task-1
+          description: Task 1
+          job_cluster_key: multiple-task-job-cluster
+          spark_python_task:
+            python_file: ${oc.env:DATABRICKS_DBFS_DIR}/databricks_stack_example/scripts/task1.py
+            parameters:
+              - "--param-1"
+              - "${oc.env:PARAM_1}"
+              - "--param-2"
+              - "${oc.env:PARAM_2}"
+          libraries:
+            - whl: ${oc.env:DATABRICKS_DBFS_DIR}/dist/${oc.env:WHEEL_NAME}
+        - task_key: task-2
+          description: Task 2
+          job_cluster_key: multiple-task-job-cluster
+          spark_python_task:
+            python_file: ${oc.env:DATABRICKS_DBFS_DIR}/databricks_stack_example/scripts/task2.py
+            parameters:
+              - "--param-1"
+              - "${oc.env:PARAM_1}"
+              - "--param-2"
+              - "${oc.env:PARAM_2}"
+          libraries:
+            - whl: ${oc.env:DATABRICKS_DBFS_DIR}/dist/${oc.env:WHEEL_NAME}
+        - task_key: task-3
+          description: Task 3
+          depends_on:
+            - task_key: task-1
+            - task_key: task-2
+          job_cluster_key: multiple-task-job-cluster
+          spark_python_task:
+            python_file: ${oc.env:DATABRICKS_DBFS_DIR}/databricks_stack_example/scripts/task3.py
+            parameters:
+              - "--param-1"
+              - "${oc.env:PARAM_1}"
+              - "--param-2"
+              - "${oc.env:PARAM_2}"
+          libraries:
+            - whl: ${oc.env:DATABRICKS_DBFS_DIR}/dist/${oc.env:WHEEL_NAME}
