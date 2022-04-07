@@ -6,8 +6,8 @@ to deploy projects across multiple Databricks environments.
 To do:
 
 - MVP:
-    - [ ] Add multi-task job configuration
-    - [ ] Ensure `spark_python_task` tasks accept command line arguments as parameters
+    - [X] Add multi-task job configuration
+    - [X] Ensure `spark_python_task` tasks accept command line arguments as parameters
 - Enhancements:
     - [ ] Use git filesystem to automate workspace/dbfs configuration
     - [ ] Explore environment variables vs parameters for tasks
